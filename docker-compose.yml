@@ -1,0 +1,29 @@
+name: obot
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    restart: unless-stopped
+    container_name: postgres
+    network_mode: bridge
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./postgres/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    env_file:
+      - path: ./obot.env
+        required: true
+  obot:
+    image: ghcr.io/obot-platform/obot:latest
+    container_name: obot
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - "8080:8080"
+    links:
+      - "postgres:postgres"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "./data:/data"
+    env_file:
+      - path: ./obot.env
+        required: true

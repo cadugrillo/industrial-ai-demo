@@ -1,0 +1,9 @@
+----------Light Scheme----------
+Primary - #00cccc
+
+----------Dark Scheme----------
+Primary - #00cccc
+Background - #000028
+Surface 1 - #00183b
+Surface 2 - #23233c
+Surface 3 - #23233c
